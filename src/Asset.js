@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import { Card, Button, Space } from "antd";
+import { Card,} from "antd";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-export default class Asset extends Component {
+@connect((state) => state.asset, {})
+class Asset extends Component {
   static propTypes = {
     boss: PropTypes.string,
   };
@@ -14,55 +16,19 @@ export default class Asset extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      members: ["韦冰江", "胡汉顶"],
     };
   }
 
-  handleClickAdd() {
-    let newMember = "员工";
-    this.setState({
-      members: [...this.state.members, newMember],
-    });
-  }
-
-  handleClickDelete() {
-    let members = this.state.members;
-    members.pop()
-    this.setState({
-      members: members,
-    });
-  }
-
   render() {
+    console.log(this.props)
     return (
       <div>
         <Card
           size="small"
           title={this.props.boss}
-          extra={
-            <Space>
-              <Button
-                type="primary"
-                onClick={() => {
-                  this.handleClickAdd();
-                }}
-              >
-                添加
-              </Button>
-              <Button
-                type="primary"
-                danger
-                onClick={() => {
-                  this.handleClickDelete();
-                }}
-              >
-                淘汰
-              </Button>
-            </Space>
-          }
           style={{ width: 300 }}
         >
-          {this.state.members.map((v, index) => {
+          {this.props.person.map((v, index) => {
             return <p key={`Asset${index}`}>{v}</p>;
           })}
         </Card>
@@ -70,3 +36,4 @@ export default class Asset extends Component {
     );
   }
 }
+export default Asset

@@ -21,3 +21,7 @@ code {
   display: inline-block;
   vertical-align: middle;
 }
+
+.mg12 {
+  margin-top: 12px;
+}
