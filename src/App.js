@@ -5,13 +5,44 @@ import Asset from "./Asset";
 import Control from "./Control";
 import LifeCycles from "./LifeCycles";
 import Hr from "./Hr";
+import ThemeContext from "./context/themeContext";
+import HookDemo from './hook/demo'
 
 const { TabPane } = Tabs;
+
+const theme = {
+  white: {
+    bgColor: "#ffffff",
+  },
+  dark: {
+    bgColor: "#000000",
+  },
+};
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      ...theme.white,
+    };
   }
+
+  handleDispatch = (action) => {
+    switch (action) {
+      case "white":
+        return this.setState({
+          ...theme.white,
+        });
+      case "dark":
+        return this.setState({
+          ...theme.dark,
+        });
+      default:
+        return this.setState({
+          ...theme.white,
+        });
+    }
+  };
+
   render() {
     let title = "研发三处";
     // const { store, addPerson, removePerson, addPersonAsync } = this.props;
@@ -58,17 +89,27 @@ export default class App extends Component {
             </Row>
           </TabPane> */}
           <TabPane tab="Redux" key="4">
-            <Divider orientation="left">人资</Divider>
-            <Hr></Hr>
-            <Divider orientation="left">研发三处</Divider>
-            <Row>
-              <Col xs={{ span: 5, offset: 1 }} lg={{ span: 6, offset: 2 }}>
-                <Asset boss={"贾伟"}></Asset>
-              </Col>
-              <Col xs={{ span: 11, offset: 1 }} lg={{ span: 6, offset: 2 }}>
-                <Alert boss={"田琳"}></Alert>
-              </Col>
-            </Row>
+            <ThemeContext.Provider
+              value={{
+                theme: this.state,
+                dispatch: this.handleDispatch,
+              }}
+            >
+              <Divider orientation="left">人资</Divider>
+              <Hr></Hr>
+              <Divider orientation="left">研发三处</Divider>
+              <Row>
+                <Col xs={{ span: 5, offset: 1 }} lg={{ span: 6, offset: 2 }}>
+                  <Asset boss={"贾伟"}></Asset>
+                </Col>
+                <Col xs={{ span: 11, offset: 1 }} lg={{ span: 6, offset: 2 }}>
+                  <Alert boss={"田琳"}></Alert>
+                </Col>
+              </Row>
+            </ThemeContext.Provider>
+          </TabPane>
+          <TabPane tab="hook" key="5">
+            <HookDemo></HookDemo>
           </TabPane>
         </Tabs>
       </div>

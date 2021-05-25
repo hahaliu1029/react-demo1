@@ -7,6 +7,7 @@ import thunk from "redux-thunk";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+
 // import {
 //   editPerson,
 //   addPerson,
@@ -14,7 +15,7 @@ import reportWebVitals from "./reportWebVitals";
 //   addPersonAsync,
 // } from "./index.redux";
 
-import storeRedux from './redux/index.redux';
+import storeRedux from "./redux/index.redux";
 
 const store = createStore(storeRedux, compose(applyMiddleware(thunk)));
 
@@ -37,7 +38,7 @@ const store = createStore(storeRedux, compose(applyMiddleware(thunk)));
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App/>
+        <App />
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")
